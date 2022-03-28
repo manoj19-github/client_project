@@ -1,0 +1,30 @@
+.Containers {
+  height: calc(100vh - 110px);
+  width: 100%;
+  margin: 0px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  background-color: #f0f2f5;
+}
+.body-class {
+  flex: auto;
+  overflow: auto;
+  padding: 10px;
+}
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #55bfe6;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1594c2;
+}
