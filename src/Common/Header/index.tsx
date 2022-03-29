@@ -6,8 +6,11 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AccountCircle } from "@mui/icons-material";
+import { connect } from "react-redux";
+import { StoreState } from "../../models/reduxModels";
+import { UserDetails } from "../../models/userModels";
 
-const Header = ({ setOpen, open }: headerProps) => {
+const Header = ({ setOpen, open, userDetail }: headerProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -30,15 +33,17 @@ const Header = ({ setOpen, open }: headerProps) => {
         justifyContent="center"
         alignItems="center"
       >
-        <Grid container xs={3} justifyContent="flex-start">
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={() => setOpen(!open)}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Grid>
+        {!!userDetail && (
+          <Grid container xs={3} justifyContent="flex-start">
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={() => setOpen(!open)}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Grid>
+        )}
         <Grid container xs={9} justifyContent="flex-start">
           <img
             style={{ width: "40%" }}
@@ -63,43 +68,50 @@ const Header = ({ setOpen, open }: headerProps) => {
         justifyContent="end"
         paddingRight={5}
       >
-        <div>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleMenu}
-            color="inherit"
-          >
-            <AccountCircle style={{ color: "#ffff", fontSize: "30px" }} />
-          </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>LogOut</MenuItem>
-          </Menu>
-        </div>
+        {!!userDetail && (
+          <div>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <AccountCircle style={{ color: "#ffff", fontSize: "30px" }} />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem onClick={handleClose}>LogOut</MenuItem>
+            </Menu>
+          </div>
+        )}
       </Grid>
     </Grid>
   );
 };
-
-export default Header;
+const mapStateToProps = (state: StoreState) => {
+  return {
+    userDetail: state.user.userDetails,
+  };
+};
+export default connect(mapStateToProps)(Header);
 interface headerProps {
   setOpen?: any;
   open?: boolean;
+  userDetail?: UserDetails;
 }

@@ -12,10 +12,9 @@ import { Drawer, Icon, IconButton, styled } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { connect } from "react-redux";
 import { StoreState } from "../../models/reduxModels";
+import { UserDetails } from "../../models/userModels";
 
-const SideNav = ({ open, setOpen, loading }: SideNavProps) => {
-  console.log(loading);
-
+const SideNav = ({ open, setOpen, userDetail }: SideNavProps) => {
   const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
@@ -24,66 +23,70 @@ const SideNav = ({ open, setOpen, loading }: SideNavProps) => {
     justifyContent: "flex-end",
   }));
   return (
-    <Drawer
-      sx={{
-        width: 270,
-        flexShrink: 0,
-        "& .MuiDrawer-paper": {
-          width: 270,
-          boxSizing: "border-box",
-        },
-      }}
-      PaperProps={{ style: { height: "calc(100vh - 110px)", top: 70 } }}
-      variant="persistent"
-      anchor="left"
-      open={open}
-    >
-      <div className="container">
-        <DrawerHeader>
-          <IconButton onClick={() => setOpen(false)}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          <ListItem button>
-            <ListItemIcon>
-              <Icon>dashboard</Icon>
-            </ListItemIcon>
-            <ListItemText primary={"Dashboard"} />
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          {["Zone", "Station", "FMS Location", "FMS", "Cable"].map(
-            (text, index) => (
-              <ListItem button key={text}>
+    <>
+      {!!userDetail && !!userDetail.userid && (
+        <Drawer
+          sx={{
+            width: 270,
+            flexShrink: 0,
+            "& .MuiDrawer-paper": {
+              width: 270,
+              boxSizing: "border-box",
+            },
+          }}
+          PaperProps={{ style: { height: "calc(100vh - 100px)", top: 70 } }}
+          variant="persistent"
+          anchor="left"
+          open={open}
+        >
+          <div className="container">
+            <DrawerHeader>
+              <IconButton onClick={() => setOpen(false)}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </DrawerHeader>
+            <Divider />
+            <List>
+              <ListItem button>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <Icon>dashboard</Icon>
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={"Dashboard"} />
               </ListItem>
-            )
-          )}
-        </List>
-        <Divider />
-        <List>
-          {["Cable Master", "FMS Master"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </div>
-    </Drawer>
+            </List>
+            <Divider />
+            <List>
+              {["Zone", "Station", "FMS Location", "FMS", "Cable"].map(
+                (text, index) => (
+                  <ListItem button key={text}>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={text} />
+                  </ListItem>
+                )
+              )}
+            </List>
+            <Divider />
+            <List>
+              {["Cable Master", "FMS Master"].map((text, index) => (
+                <ListItem button key={text}>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+          </div>
+        </Drawer>
+      )}
+    </>
   );
 };
 const mapStateToProps = (state: StoreState) => {
   return {
-    loading: state,
+    userDetail: state.user.userDetails,
   };
 };
 export default connect(mapStateToProps)(SideNav);
@@ -91,5 +94,5 @@ export default connect(mapStateToProps)(SideNav);
 interface SideNavProps {
   open?: boolean;
   setOpen?: any;
-  loading?: any;
+  userDetail?: UserDetails;
 }

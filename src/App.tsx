@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Zone from "./Views/Zone";
-import { Route, Routes } from "react-router-dom";
+import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 import Login from "./Views/Login";
 import Dashboard from "./Views/Dashboard";
 import {
@@ -50,10 +50,16 @@ function App() {
       <div className="Containers">
         <SideNav open={open} setOpen={setOpen} />
         <Main open={open}>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="dashboard" element={<Dashboard />} />
-          </Routes>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() =>
+                false ? <Redirect to="/landing" /> : <Redirect to="/login" />
+              }
+            />
+            <Route path="/login" render={() => <Login />} />
+          </Switch>
         </Main>
       </div>
       <div>

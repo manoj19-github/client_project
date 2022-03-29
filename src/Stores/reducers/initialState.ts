@@ -8,6 +8,9 @@ const InitialState: StoreState = {
   error: {
     error_repo: [],
   },
+  user: {
+    userDetails: undefined,
+  },
 };
 
 export default InitialState;

@@ -3,10 +3,10 @@ import { createTheme } from "@mui/material";
 const CescLightTheme = createTheme({
   palette: {
     primary: {
-      main: "#283248",
+      main: "#00AAEE",
     },
     secondary: {
-      main: "#FF661C",
+      main: "#024669",
     },
   },
   breakpoints: {

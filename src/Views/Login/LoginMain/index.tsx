@@ -1,5 +1,7 @@
+import LoginMainView from "./LoginMainView";
+
 const LoginMain = () => {
-  return <div>Hello</div>;
+  return <LoginMainView />;
 };
 
 export default LoginMain;
