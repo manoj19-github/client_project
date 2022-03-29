@@ -11,3 +11,8 @@ export interface UserDetails {
   userName: string;
   contact: string;
 }
+
+export interface UserLoginModel {
+  userid: string;
+  password: string;
+}

@@ -5,10 +5,10 @@ import App from "./App";
 import { Provider } from "react-redux";
 import ConfigureStore from "./Stores/configureStore";
 import { BrowserRouter, Route } from "react-router-dom";
-const store = ConfigureStore();
+export const storess = ConfigureStore();
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={storess}>
       <BrowserRouter>
         <Route component={App} />
       </BrowserRouter>

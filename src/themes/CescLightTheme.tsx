@@ -19,7 +19,7 @@ const CescLightTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Source Sans Pro", "sans-serif"',
+    fontFamily: '"Source Sans Pro", "Poppins"',
   },
 });
 

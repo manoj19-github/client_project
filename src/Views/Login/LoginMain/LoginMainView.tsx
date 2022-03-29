@@ -16,12 +16,12 @@ import { Paper } from "@mui/material";
 import Image from "../../../assets/opticimg.jpg";
 const theme = createTheme();
 
-const LoginMainView = () => {
+const LoginMainView = ({ Submit }: LoginViewProps) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
+    Submit({
+      userid: data.get("userid"),
       password: data.get("password"),
     });
   };
@@ -67,10 +67,10 @@ const LoginMainView = () => {
                 margin="normal"
                 required
                 fullWidth
-                id="user"
+                id="userid"
                 label="User ID"
-                name="user"
-                autoComplete="user"
+                name="userid"
+                autoComplete="userid"
                 autoFocus
               />
               <TextField
@@ -111,3 +111,7 @@ const LoginMainView = () => {
 };
 
 export default LoginMainView;
+
+interface LoginViewProps {
+  Submit?: any;
+}

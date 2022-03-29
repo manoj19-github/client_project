@@ -13,8 +13,73 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { connect } from "react-redux";
 import { StoreState } from "../../models/reduxModels";
 import { UserDetails } from "../../models/userModels";
-
+import { useEffect, useState } from "react";
+import CorporateFareIcon from "@mui/icons-material/CorporateFare";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import HomeWorkIcon from "@mui/icons-material/HomeWork";
+import AccountTreeIcon from "@mui/icons-material/AccountTree";
+import CableIcon from "@mui/icons-material/Cable";
+import SettingsInputCompositeIcon from "@mui/icons-material/SettingsInputComposite";
+import LanIcon from "@mui/icons-material/Lan";
+import { Link, useHistory } from "react-router-dom";
 const SideNav = ({ open, setOpen, userDetail }: SideNavProps) => {
+  const history = useHistory();
+  const NavigateToUrl = (url: any) => {
+    history.push(url);
+  };
+  const [navItemOne, SetNavItemOne] = useState<SideNavItem[]>([
+    {
+      key: 1,
+      Text: "Zone",
+      icon: <LocationOnIcon />,
+      url: "/zone",
+      hasPermission: true,
+    },
+    {
+      key: 2,
+      Text: "Station",
+      icon: <CorporateFareIcon />,
+      url: "/station",
+      hasPermission: true,
+    },
+    {
+      key: 3,
+      Text: "FMS Location",
+      icon: <HomeWorkIcon />,
+      url: "/fms-location",
+      hasPermission: true,
+    },
+    {
+      key: 4,
+      Text: "FMS",
+      icon: <AccountTreeIcon />,
+      url: "/fms",
+      hasPermission: true,
+    },
+    {
+      key: 5,
+      Text: "Cable",
+      icon: <CableIcon />,
+      url: "/cable",
+      hasPermission: true,
+    },
+  ]);
+  const [navItemTwo, SetNavItemTwo] = useState<SideNavItem[]>([
+    {
+      key: 1,
+      Text: "Cable Master",
+      icon: <SettingsInputCompositeIcon />,
+      url: "/fms",
+      hasPermission: true,
+    },
+    {
+      key: 2,
+      Text: "FMS Master",
+      icon: <LanIcon />,
+      url: "/cable",
+      hasPermission: true,
+    },
+  ]);
   const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
@@ -47,7 +112,7 @@ const SideNav = ({ open, setOpen, userDetail }: SideNavProps) => {
             </DrawerHeader>
             <Divider />
             <List>
-              <ListItem button>
+              <ListItem button onClick={() => NavigateToUrl("/dashboard")}>
                 <ListItemIcon>
                   <Icon>dashboard</Icon>
                 </ListItemIcon>
@@ -56,25 +121,27 @@ const SideNav = ({ open, setOpen, userDetail }: SideNavProps) => {
             </List>
             <Divider />
             <List>
-              {["Zone", "Station", "FMS Location", "FMS", "Cable"].map(
-                (text, index) => (
-                  <ListItem button key={text}>
-                    <ListItemIcon>
-                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                    </ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItem>
-                )
-              )}
+              {navItemOne.map((item, index) => (
+                <ListItem
+                  button
+                  key={item.key}
+                  onClick={() => NavigateToUrl(item.url)}
+                >
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.Text} />
+                </ListItem>
+              ))}
             </List>
             <Divider />
             <List>
-              {["Cable Master", "FMS Master"].map((text, index) => (
-                <ListItem button key={text}>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
+              {navItemTwo.map((item, index) => (
+                <ListItem
+                  button
+                  key={item.key}
+                  onClick={() => NavigateToUrl(item.url)}
+                >
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.Text} />
                 </ListItem>
               ))}
             </List>
@@ -95,4 +162,12 @@ interface SideNavProps {
   open?: boolean;
   setOpen?: any;
   userDetail?: UserDetails;
+}
+
+interface SideNavItem {
+  url: string;
+  icon: any;
+  Text: string;
+  hasPermission?: boolean;
+  key: number;
 }

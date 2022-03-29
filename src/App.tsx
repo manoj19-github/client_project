@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Zone from "./Views/Zone";
-import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useRouteMatch,
+} from "react-router-dom";
 import Login from "./Views/Login";
 import Dashboard from "./Views/Dashboard";
 import {
@@ -19,6 +25,7 @@ import "./App.css";
 import SideNav from "./Common/SideNav";
 import Header from "./Common/Header";
 import Footer from "./Common/Footer";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 function App() {
   const [open, setOpen] = useState(true);
   const Main = styled("main", {
@@ -55,10 +62,12 @@ function App() {
               exact
               path="/"
               render={() =>
-                false ? <Redirect to="/landing" /> : <Redirect to="/login" />
+                false ? <Redirect to="/dashboard" /> : <Redirect to="/login" />
               }
             />
             <Route path="/login" render={() => <Login />} />
+            <PrivateRoute exact path="/dashboard" component={Dashboard} />
+            <PrivateRoute exact path="/zone" component={Zone} />
           </Switch>
         </Main>
       </div>

@@ -9,15 +9,16 @@ const InitialState: StoreState = {
     error_repo: [],
   },
   user: {
-    userDetails: {
-      email: "example@email.com",
-      roleType: "ADMIN",
-      userName: "Rabi Thakur",
-      contact: "8745968874",
-      accessToken: "sdff",
-      userType: "sdad",
-      userid: 2,
-    },
+    userDetails: undefined,
+    // {
+    //   email: "example@email.com",
+    //   roleType: "ADMIN",
+    //   userName: "Rabi Thakur",
+    //   contact: "8745968874",
+    //   accessToken: "sdff",
+    //   userType: "sdad",
+    //   userid: 2,
+    // },
   },
 };
 
