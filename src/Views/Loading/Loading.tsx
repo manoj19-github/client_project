@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { StoreState } from "../../models/reduxModels";
 import "./Loading.css";
 const Loading = (props: any) => {
-  console.log(props);
-
   return (
     <>
       {!!props && !!props.loading && props.loading?.count > 0 ? (

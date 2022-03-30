@@ -9,3 +9,7 @@ export const serviceClient = new RestService({
 export const UserLoginService = (data: UserLoginModel) => {
   return serviceClient.post(environment.url.LoginUrl, data);
 };
+
+export const GetAllZone = () => {
+  return serviceClient.get(environment.url.GetAllZoneUrl);
+};

@@ -67,6 +67,7 @@ const LoginMainView = ({ Submit }: LoginViewProps) => {
                 margin="normal"
                 required
                 fullWidth
+                size="small"
                 id="userid"
                 label="User ID"
                 name="userid"
@@ -77,6 +78,7 @@ const LoginMainView = ({ Submit }: LoginViewProps) => {
                 margin="normal"
                 required
                 fullWidth
+                size="small"
                 name="password"
                 label="Password"
                 type="password"

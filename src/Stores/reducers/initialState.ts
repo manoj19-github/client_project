@@ -20,6 +20,9 @@ const InitialState: StoreState = {
     //   userid: 2,
     // },
   },
+  zone: {
+    zone_list: [],
+  },
 };
 
 export default InitialState;

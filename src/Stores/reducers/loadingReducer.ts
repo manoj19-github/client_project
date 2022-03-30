@@ -1,6 +1,7 @@
 import { LoadingState } from "../../models/loadingModelss";
 import { ApiStatusActionTypes } from "../actions/apiStatusActions";
 import { UserActionTypes } from "../actions/userAction";
+import { ZoneActionTypes } from "../actions/zoneActions";
 import InitialState from "./initialState";
 
 const initialState: LoadingState = InitialState.loading;
@@ -19,6 +20,8 @@ export default function LoadingReducer(
     case ApiStatusActionTypes.Api_Call_Error:
       return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
     case UserActionTypes.User_Login_Success:
+      return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
+    case ZoneActionTypes.Zone_GetAll_Success:
       return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
     default:
       return state;

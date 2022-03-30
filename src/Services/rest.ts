@@ -11,9 +11,8 @@ export default class RestService {
       async (config) => {
         const token = await getToken();
         if (token) {
-          config.headers["Authorization"] = token;
+          config.headers["Authorization"] = "Bearer " + token;
         }
-        console.log("Request: ", config.url, config.headers?.Authorization);
         return config;
       },
       (error) => {
@@ -26,7 +25,7 @@ export default class RestService {
         if (response?.data?.token) {
           await setToken(response?.data?.token);
           this.client.defaults.headers.common["Authorization"] =
-            response?.data?.token;
+            "Bearer " + response?.data?.token;
         }
         return response;
       },
