@@ -1,7 +1,29 @@
 import React from "react";
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { StoreState } from "../../../models/reduxModels";
+import { AddZones } from "../../../Stores/actions/zoneActions";
+import ZoneAddView from "./ZoneAddView";
 
-function AddZone() {
-  return <div>index</div>;
+function AddZone({ AddZones }: AddZoneProps) {
+  const history = useHistory();
+  const submitData = (data: any) => {
+    AddZones({
+      payload: data,
+      history: history,
+    });
+  };
+  return <ZoneAddView submitData={submitData} />;
 }
 
-export default AddZone;
+const mapStateToProps = (state: StoreState) => {
+  return {};
+};
+const mapDispatchToProps = {
+  AddZones,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddZone);
+interface AddZoneProps {
+  AddZones?: any;
+}

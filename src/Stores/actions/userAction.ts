@@ -1,6 +1,6 @@
 import { ErrorModel } from "../../models/errorModels";
 import { UserDetails, UserLoginModel } from "../../models/userModels";
-import { UserLoginService } from "../../Services/customer";
+import { UserLoginService } from "../../Services/Services";
 import { ApiCallErrorAction, BeginApiCallAction } from "./apiStatusActions";
 export enum UserActionTypes {
   User_Login_Success = "[USER] User Login Success",

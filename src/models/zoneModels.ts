@@ -14,3 +14,9 @@ export interface ZoneList {
   zone_id: number;
   zone_name: string;
 }
+
+export interface AddZone {
+  zone_code: string;
+  zone_name: string;
+  zone_desc: string;
+}

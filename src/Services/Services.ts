@@ -1,5 +1,6 @@
 import { baseServiceUrl, environment } from "../environment";
 import { UserLoginModel } from "../models/userModels";
+import { AddZone } from "../models/zoneModels";
 import RestService from "./rest";
 
 export const serviceClient = new RestService({
@@ -12,4 +13,8 @@ export const UserLoginService = (data: UserLoginModel) => {
 
 export const GetAllZone = () => {
   return serviceClient.get(environment.url.GetAllZoneUrl);
+};
+
+export const ZoneAddService = (data: AddZone) => {
+  return serviceClient.post(environment.url.ZoneAdddUrl, data);
 };
