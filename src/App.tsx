@@ -26,6 +26,8 @@ import SideNav from "./Common/SideNav";
 import Header from "./Common/Header";
 import Footer from "./Common/Footer";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import Path from "./Views/Path";
+import Loading from "./Views/Loading/Loading";
 function App() {
   const [open, setOpen] = useState(true);
   const Main = styled("main", {
@@ -55,8 +57,12 @@ function App() {
         <Header open={open} setOpen={setOpen} />
       </div>
       <div className="Containers">
+        <Loading />
         <SideNav open={open} setOpen={setOpen} />
-        <Main open={open}>
+        <Main open={open} className="body-class">
+          <div style={{ position: "fixed", top: 70 }}>
+            <Path />
+          </div>
           <Switch>
             <Route
               exact
@@ -66,8 +72,8 @@ function App() {
               }
             />
             <Route path="/login" render={() => <Login />} />
-            <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            <PrivateRoute exact path="/zone" component={Zone} />
+            <PrivateRoute path="/dashboard" component={Dashboard} />
+            <PrivateRoute path="/zone" component={Zone} />
           </Switch>
         </Main>
       </div>
