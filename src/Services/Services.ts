@@ -18,3 +18,7 @@ export const GetAllZone = () => {
 export const ZoneAddService = (data: AddZone) => {
   return serviceClient.post(environment.url.ZoneAdddUrl, data);
 };
+
+export const DeleteZone = (data: number) => {
+  return serviceClient.get(environment.url.DeleteZoneUrl + "/" + data);
+};

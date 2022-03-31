@@ -21,8 +21,14 @@ import {
   Chip,
   emphasize,
   Button,
+  useMediaQuery,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import UpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -30,10 +36,12 @@ import { green } from "@mui/material/colors";
 import { useHistory } from "react-router-dom";
 import { ZoneList } from "../../../models/zoneModels";
 import DeleteIcon from "@mui/icons-material/Delete";
-const ZoneMainView = ({ allzone }: ZoneViewProps) => {
-  const columns: any[] = ["Zone Name", "Zone Code", "Description", "Action"];
-  const history = useHistory();
+const ZoneMainView = ({ allzone, Delete }: ZoneViewProps) => {
   const theme = useTheme();
+  const columns: any[] = ["Zone Name", "Zone Code", "Description", "Action"];
+  const [open, setOpen] = useState<boolean>(false);
+  const [id, SetId] = useState<number>(-1);
+  const history = useHistory();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [value, setValue] = React.useState(0);
@@ -47,9 +55,33 @@ const ZoneMainView = ({ allzone }: ZoneViewProps) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  const del = () => {
+    setOpen(false);
+    Delete(id);
+  };
 
   return (
     <>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">{"Delete"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this zone?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={() => setOpen(false)}>
+            No
+          </Button>
+          <Button onClick={() => del()} autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Paper
         sx={{
           width: "100%",
@@ -113,6 +145,7 @@ const ZoneMainView = ({ allzone }: ZoneViewProps) => {
                             Edit
                           </Button>
                           <Button
+                            onClick={() => (SetId(row.zone_id), setOpen(true))}
                             style={{ marginLeft: 10 }}
                             variant="outlined"
                             color="error"
@@ -154,6 +187,7 @@ export default ZoneMainView;
 
 interface ZoneViewProps {
   allzone: ZoneList[];
+  Delete?: any;
 }
 const fabStyle = {
   position: "absolute",

@@ -1,12 +1,16 @@
 import { ErrorModel } from "../../models/errorModels";
 import { ZoneList } from "../../models/zoneModels";
-import { GetAllZone, ZoneAddService } from "../../Services/Services";
+import {
+  DeleteZone,
+  GetAllZone,
+  ZoneAddService,
+} from "../../Services/Services";
 import { ApiCallErrorAction, BeginApiCallAction } from "./apiStatusActions";
 import { UserLogoutSuccess } from "./userAction";
-
 export enum ZoneActionTypes {
   Zone_GetAll_Success = "[ZONE] Zone GetAll Success",
   Zone_Add_Success_Action = "[ZONE] Zone Add Success Action",
+  Zone_Delete_Success_Action = "[ZONE] Zone Delete Success Action",
 }
 export const GetAllZones = () => {
   return (dispatch: any, getState: any) => {
@@ -92,4 +96,50 @@ export const AddZones = (data: any) => {
 
 export const AddZoneSuccess = () => {
   return { type: ZoneActionTypes.Zone_Add_Success_Action };
+};
+
+export const DeleteZones = (data: any) => {
+  return (dispatch: any, getState: any) => {
+    dispatch(
+      BeginApiCallAction({
+        count: 1,
+        message: "Deleting Zone Please Wait.",
+      })
+    );
+    return DeleteZone(data.payload)
+      .then(async (response) => {
+        if (!!(<ErrorModel>response.data.Errors)) {
+          dispatch(ApiCallErrorAction(response.data.Errors));
+        } else {
+          await data.enqueueSnackbar("Deleted Successfully!", {
+            variant: "success",
+          });
+          dispatch(DeleteZoneSuccess());
+          dispatch(GetAllZones());
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          dispatch(UserLogoutSuccess());
+        }
+        dispatch(
+          ApiCallErrorAction({
+            Business_Errors: [],
+            Info: [],
+            System_Errors: [
+              {
+                Code: "SE001",
+                Message: "Error",
+                Payload: [],
+              },
+            ],
+            Warnings: [],
+          })
+        );
+      });
+  };
+};
+
+export const DeleteZoneSuccess = () => {
+  return { type: ZoneActionTypes.Zone_Delete_Success_Action };
 };

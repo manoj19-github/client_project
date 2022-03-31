@@ -28,6 +28,7 @@ import Footer from "./Common/Footer";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Path from "./Views/Path";
 import Loading from "./Views/Loading/Loading";
+import { SnackbarProvider } from "notistack";
 function App() {
   const [open, setOpen] = useState(true);
   const Main = styled("main", {
@@ -53,33 +54,39 @@ function App() {
 
   return (
     <ThemeProvider theme={CescLightTheme}>
-      <div>
-        <Header open={open} setOpen={setOpen} />
-      </div>
-      <div className="Containers">
-        <Loading />
-        <SideNav open={open} setOpen={setOpen} />
-        <Main open={open} className="body-class">
-          <div style={{ position: "fixed", top: 70 }}>
-            <Path />
-          </div>
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={() =>
-                false ? <Redirect to="/dashboard" /> : <Redirect to="/login" />
-              }
-            />
-            <Route path="/login" render={() => <Login />} />
-            <PrivateRoute path="/dashboard" component={Dashboard} />
-            <PrivateRoute path="/zone" component={Zone} />
-          </Switch>
-        </Main>
-      </div>
-      <div>
-        <Footer />
-      </div>
+      <SnackbarProvider maxSnack={3}>
+        <div>
+          <Header open={open} setOpen={setOpen} />
+        </div>
+        <div className="Containers">
+          <Loading />
+          <SideNav open={open} setOpen={setOpen} />
+          <Main open={open} className="body-class">
+            <div style={{ position: "fixed", top: 70 }}>
+              <Path />
+            </div>
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={() =>
+                  false ? (
+                    <Redirect to="/dashboard" />
+                  ) : (
+                    <Redirect to="/login" />
+                  )
+                }
+              />
+              <Route path="/login" render={() => <Login />} />
+              <PrivateRoute path="/dashboard" component={Dashboard} />
+              <PrivateRoute path="/zone" component={Zone} />
+            </Switch>
+          </Main>
+        </div>
+        <div>
+          <Footer />
+        </div>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 }

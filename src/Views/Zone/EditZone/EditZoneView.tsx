@@ -12,7 +12,7 @@ import {
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-function ZoneAddView({ submitData }: ZoneAddViewProps) {
+function ZoneEditView({ submitData }: ZoneEditViewProps) {
   const { register, handleSubmit, formState, setValue } = useForm();
   const { errors } = formState;
 
@@ -112,8 +112,8 @@ function ZoneAddView({ submitData }: ZoneAddViewProps) {
   );
 }
 
-export default ZoneAddView;
+export default ZoneEditView;
 
-interface ZoneAddViewProps {
+interface ZoneEditViewProps {
   submitData?: any;
 }
