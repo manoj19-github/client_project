@@ -27,15 +27,16 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  IconButton,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
-import UpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { green } from "@mui/material/colors";
+import SearchIcon from "@mui/icons-material/Search";
 import { useHistory } from "react-router-dom";
 import { ZoneList } from "../../../models/zoneModels";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CloseIcon from "@mui/icons-material/Close";
 const ZoneMainView = ({ allzone, Delete }: ZoneViewProps) => {
   const theme = useTheme();
   const columns: any[] = ["Zone Name", "Zone Code", "Description", "Action"];
@@ -44,10 +45,34 @@ const ZoneMainView = ({ allzone, Delete }: ZoneViewProps) => {
   const history = useHistory();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [value, setValue] = React.useState(0);
+  const [rows, setRows] = useState<ZoneList[]>([]);
+  const [searched, setSearched] = useState<string>("");
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
+  const requestSearch = (searchedVal: string) => {
+    const filteredRows = !!allzone
+      ? allzone.filter((row: ZoneList) => {
+          return (
+            row.zone_code.toLowerCase().includes(searchedVal.toLowerCase()) ||
+            row.zone_name.toLowerCase().includes(searchedVal.toLowerCase()) ||
+            row.zone_desc.toLowerCase().includes(searchedVal.toLowerCase())
+          );
+        })
+      : [];
+    setRows(filteredRows);
+  };
+
+  const cancelSearch = () => {
+    setSearched("");
+    requestSearch("");
+  };
+
+  useEffect(() => {
+    if (!!allzone) {
+      cancelSearch();
+    }
+  }, [allzone]);
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -100,6 +125,22 @@ const ZoneMainView = ({ allzone, Delete }: ZoneViewProps) => {
               style={{ width: "100%" }}
               placeholder="Search..."
               id="fullWidth"
+              value={searched}
+              onChange={(e: any) => (
+                requestSearch(e.target.value), setSearched(e.target.value)
+              )}
+              InputProps={{
+                endAdornment:
+                  !!searched && searched.length > 0 ? (
+                    <IconButton color="primary" onClick={() => cancelSearch()}>
+                      <CloseIcon />
+                    </IconButton>
+                  ) : (
+                    <IconButton color="primary">
+                      <SearchIcon />
+                    </IconButton>
+                  ),
+              }}
             />
           </Grid>
         </Grid>
@@ -115,8 +156,8 @@ const ZoneMainView = ({ allzone, Delete }: ZoneViewProps) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {!!allzone &&
-                allzone
+              {!!rows &&
+                rows
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
                     return (
