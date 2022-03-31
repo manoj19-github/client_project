@@ -9,22 +9,30 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { ZoneList } from "../../../models/zoneModels";
 
-function ZoneEditView({ submitData }: ZoneEditViewProps) {
+function ZoneEditView({ submitData, SingleZone }: ZoneEditViewProps) {
   const { register, handleSubmit, formState, setValue } = useForm();
   const { errors } = formState;
 
   const onSubmit = (props: any) => {
     submitData(props);
   };
+  useEffect(() => {
+    if (!!SingleZone) {
+      setValue("zone_code", SingleZone.zone_code);
+      setValue("zone_name", SingleZone.zone_name);
+      setValue("zone_desc", SingleZone.zone_desc);
+    }
+  }, [SingleZone]);
   return (
     <>
       <Card sx={{}}>
         <CardHeader
           style={{ backgroundColor: "#00AAEE", color: "#fff" }}
-          title="Add Zone"
+          title="Edit Zone"
         />
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -101,7 +109,7 @@ function ZoneEditView({ submitData }: ZoneEditViewProps) {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Save
+                  Update
                 </Button>
               </Grid>
             </Grid>
@@ -116,4 +124,5 @@ export default ZoneEditView;
 
 interface ZoneEditViewProps {
   submitData?: any;
+  SingleZone?: ZoneList;
 }

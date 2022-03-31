@@ -137,6 +137,9 @@ const ZoneMainView = ({ allzone, Delete }: ZoneViewProps) => {
                         </StyledTableCell>
                         <StyledTableCell align="center" key={columns[3]}>
                           <Button
+                            onClick={() =>
+                              history.push(`/zone/edit-zone/${row.zone_id}`)
+                            }
                             variant="outlined"
                             color="primary"
                             size="small"

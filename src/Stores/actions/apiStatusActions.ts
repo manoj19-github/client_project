@@ -1,4 +1,4 @@
-import { ErrorModel, error_repo } from "../../models/errorModels";
+import { ErrorModel } from "../../models/errorModels";
 import { LoadingPayload } from "../../models/loadingModelss";
 
 export enum ApiStatusActionTypes {

@@ -4,13 +4,15 @@ import { useHistory } from "react-router-dom";
 import { StoreState } from "../../../models/reduxModels";
 import { AddZones } from "../../../Stores/actions/zoneActions";
 import ZoneAddView from "./ZoneAddView";
-
+import { useSnackbar } from "notistack";
 function AddZone({ AddZones }: AddZoneProps) {
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
   const submitData = (data: any) => {
     AddZones({
       payload: data,
       history: history,
+      enqueueSnackbar: enqueueSnackbar,
     });
   };
   return <ZoneAddView submitData={submitData} />;

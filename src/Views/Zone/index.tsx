@@ -14,11 +14,7 @@ const Zone = () => {
       />
       <Route exact path={`${path}/zone-main`} render={() => <ZoneMain />} />
       <Route exact path={`${path}/add-zone`} render={() => <AddZone />} />
-      <Route
-        exact
-        path={`${path}/edit-zone/:zone_id`}
-        render={() => <EditZone />}
-      />
+      <Route path={`${path}/edit-zone/:id`} render={() => <EditZone />} />
     </Switch>
   );
 };

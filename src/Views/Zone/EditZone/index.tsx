@@ -1,28 +1,46 @@
+import { useEffect } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { StoreState } from "../../../models/reduxModels";
-import { AddZones } from "../../../Stores/actions/zoneActions";
+import { ZoneList } from "../../../models/zoneModels";
+import {
+  AddZones,
+  GetZonesByIds,
+  UpdateZones,
+} from "../../../Stores/actions/zoneActions";
 import ZoneEditView from "./EditZoneView";
-
-function EditZone({ AddZones }: AddZoneProps) {
+import { useSnackbar } from "notistack";
+function EditZone({ GetZonesByIds, SingleZone, UpdateZones }: EditZoneProps) {
+  let { id }: any = useParams();
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
   const submitData = (data: any) => {
-    AddZones({
-      payload: data,
+    let payload: ZoneList = JSON.parse(JSON.stringify(SingleZone));
+    UpdateZones({
+      payload: { ...payload, ...data },
       history: history,
+      enqueueSnackbar: enqueueSnackbar,
     });
   };
-  return <ZoneEditView submitData={submitData} />;
+  useEffect(() => {
+    GetZonesByIds(+id);
+  }, []);
+  return <ZoneEditView submitData={submitData} SingleZone={SingleZone} />;
 }
 
 const mapStateToProps = (state: StoreState) => {
-  return {};
+  return {
+    SingleZone: state.zone.single_zone,
+  };
 };
 const mapDispatchToProps = {
-  AddZones,
+  GetZonesByIds,
+  UpdateZones,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditZone);
-interface AddZoneProps {
-  AddZones?: any;
+interface EditZoneProps {
+  GetZonesByIds?: any;
+  SingleZone?: ZoneList;
+  UpdateZones?: any;
 }

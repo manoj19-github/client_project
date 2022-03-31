@@ -27,6 +27,10 @@ export default function LoadingReducer(
       return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
     case ZoneActionTypes.Zone_Delete_Success_Action:
       return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
+    case ZoneActionTypes.Get_Zone_By_Id_Success_Action:
+      return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
+    case ZoneActionTypes.Update_Zone_Success_Action:
+      return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
     default:
       return state;
   }
