@@ -24,6 +24,10 @@ const InitialState: StoreState = {
     zone_list: [],
     single_zone: undefined,
   },
+  fmslocation: {
+    fmslocation_list: [],
+    single_fmslocation: undefined,
+  },
 };
 
 export default InitialState;

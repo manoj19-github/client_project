@@ -9,5 +9,10 @@ export const environment = {
     DeleteZoneUrl: "api/v1/zones/delete",
     ZoneGetByIdUrl: "api/v1/zones",
     ZoneUpdateUrl: "api/v1/zones/update",
+    GetAllFMSLocationUrl:"",
+    FMSLocationAdddUrl:"",
+    DeleteFMSLocationUrl:"",
+    FMSLocationGetByIdUrl:"",
+    FMSLocationUpdateUrl:"",
   },
 };
