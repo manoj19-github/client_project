@@ -84,9 +84,9 @@ const ZoneMainView = ({ allzone, Delete }: ZoneViewProps) => {
     setOpen(false);
     Delete(id);
   };
-  const styles={
-      marginRight:'50px'
-  }
+  const styles = {
+    marginRight: "50px",
+  };
 
   return (
     <>
@@ -209,7 +209,7 @@ const ZoneMainView = ({ allzone, Delete }: ZoneViewProps) => {
           </Table>
         </TableContainer>
         <TablePagination
-            style={styles}
+          style={styles}
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
           count={allzone.length}
@@ -247,9 +247,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "#00AAEE",
     color: theme.palette.common.white,
+    padding: 10,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+    padding: 10,
   },
 }));
 

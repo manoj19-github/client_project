@@ -1,23 +1,30 @@
 export interface StationMain {
-    zone_list: StationList[];
-  }
-  
-  export interface StationList {
-    createdAt: any;
-    created_at: any;
-    created_by: any;
-    updatedAt: any;
-    updated_at: any;
-    updated_by: any;
-    zone_code: string;
-    zone_desc: string;
-    zone_id: number;
-    zone_name: string;
-  }
-  
-  export interface AddStation {
-    zone_code: string;
-    zone_name: string;
-    zone_desc: string;
-  }
-  
+  station_list: StationList[];
+  single_station?: StationList;
+}
+
+export interface StationList {
+  station_id: number;
+  station_code: string;
+  station_name: string;
+  lattitude: number;
+  longitude: number;
+  station_address: string;
+  station_type: string;
+  zone_id: number;
+  created_at?: Date;
+  created_by?: string;
+  updated_at?: any;
+  updated_by?: string;
+  station_status?: string;
+}
+
+export interface AddStation {
+  station_code: string;
+  station_name: string;
+  lattitude: number;
+  longitude: number;
+  station_address: string;
+  station_type: string;
+  zone_id: number;
+}

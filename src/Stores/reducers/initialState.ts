@@ -28,6 +28,10 @@ const InitialState: StoreState = {
     fmslocation_list: [],
     single_fmslocation: undefined,
   },
+  station: {
+    station_list: [],
+    single_station: undefined,
+  },
 };
 
 export default InitialState;
