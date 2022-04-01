@@ -33,6 +33,7 @@ import { StoreState } from "./models/reduxModels";
 import { connect } from "react-redux";
 import { ErrorModel } from "./models/errorModels";
 import ErrorToster from "./Views/ErrorToster";
+import Station from "./Views/Station";
 
 function App({ error }: Appprops) {
   const [open, setOpen] = useState(true);
@@ -86,6 +87,7 @@ function App({ error }: Appprops) {
               <Route path="/login" render={() => <Login />} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
               <PrivateRoute path="/zone" component={Zone} />
+              <PrivateRoute path="/station" component={Station} />
             </Switch>
           </Main>
         </div>

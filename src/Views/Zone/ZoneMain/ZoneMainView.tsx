@@ -84,6 +84,9 @@ const ZoneMainView = ({ allzone, Delete }: ZoneViewProps) => {
     setOpen(false);
     Delete(id);
   };
+  const styles={
+      marginRight:'50px'
+  }
 
   return (
     <>
@@ -206,6 +209,7 @@ const ZoneMainView = ({ allzone, Delete }: ZoneViewProps) => {
           </Table>
         </TableContainer>
         <TablePagination
+            style={styles}
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
           count={allzone.length}
