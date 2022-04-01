@@ -170,7 +170,7 @@ const StationMainView = ({ allstation, Delete, allzone }: StationViewProps) => {
               select
               size="small"
               placeholder="Select Zone"
-              defaultValue={""}
+              defaultValue={"0"}
             >
               <MenuItem value={"0"}>All Zone</MenuItem>
               {allzone.map((option) => (
