@@ -1,5 +1,6 @@
 import InitialState from "./initialState";
-import { ErrorState, error_repo, ErrorModel } from "../../models/errorModels";
+import { ErrorState } from "../../models/errorModels";
+import { ApiStatusActionTypes } from "../actions/apiStatusActions";
 
 const initialState: ErrorState = InitialState.error;
 
@@ -8,6 +9,8 @@ export default function ErrorReducer(
   action: any
 ) {
   switch (action.type) {
+    case ApiStatusActionTypes.Api_Call_Error:
+      return { ...state, error: action.payload };
     default:
       return state;
   }

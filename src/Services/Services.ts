@@ -1,6 +1,6 @@
 import { baseServiceUrl, environment } from "../environment";
 import { UserLoginModel } from "../models/userModels";
-import { AddZone } from "../models/zoneModels";
+import { AddZone, ZoneList } from "../models/zoneModels";
 import RestService from "./rest";
 
 export const serviceClient = new RestService({
@@ -25,4 +25,13 @@ export const GetAllStation = () => {
   
 export const StationAddService = (data: AddZone) => {
   return serviceClient.post(environment.url.StationAdddUrl, data);
+};
+export const DeleteZone = (data: number) => {
+  return serviceClient.get(environment.url.DeleteZoneUrl + "/" + data);
+};
+export const GetZoneById = (data: number) => {
+  return serviceClient.get(environment.url.ZoneGetByIdUrl + "/" + data);
+};
+export const ZoneEdit = (data: ZoneList) => {
+  return serviceClient.post(environment.url.ZoneUpdateUrl, data);
 };

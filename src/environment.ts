@@ -6,6 +6,8 @@ export const environment = {
     ZoneAdddUrl: "api/v1/zones/create",
     GetAllStationUrl:"",
     StationAdddUrl: "",
-
+    DeleteZoneUrl: "api/v1/zones/delete",
+    ZoneGetByIdUrl: "api/v1/zones",
+    ZoneUpdateUrl: "api/v1/zones/update",
   },
 };

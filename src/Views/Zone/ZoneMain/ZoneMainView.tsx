@@ -21,28 +21,58 @@ import {
   Chip,
   emphasize,
   Button,
+  useMediaQuery,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
-import UpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { green } from "@mui/material/colors";
+import SearchIcon from "@mui/icons-material/Search";
 import { useHistory } from "react-router-dom";
 import { ZoneList } from "../../../models/zoneModels";
 import DeleteIcon from "@mui/icons-material/Delete";
-
-
-
-const ZoneMainView = ({ allzone }: ZoneViewProps) => {
-  const columns: any[] = ["Zone Name", "Zone Code", "Description", "Action"];
-  const history = useHistory();
+import CloseIcon from "@mui/icons-material/Close";
+const ZoneMainView = ({ allzone, Delete }: ZoneViewProps) => {
   const theme = useTheme();
+  const columns: any[] = ["Zone Name", "Zone Code", "Description", "Action"];
+  const [open, setOpen] = useState<boolean>(false);
+  const [id, SetId] = useState<number>(-1);
+  const history = useHistory();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [value, setValue] = React.useState(0);
+  const [rows, setRows] = useState<ZoneList[]>([]);
+  const [searched, setSearched] = useState<string>("");
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
+  const requestSearch = (searchedVal: string) => {
+    const filteredRows = !!allzone
+      ? allzone.filter((row: ZoneList) => {
+          return (
+            row.zone_code.toLowerCase().includes(searchedVal.toLowerCase()) ||
+            row.zone_name.toLowerCase().includes(searchedVal.toLowerCase()) ||
+            row.zone_desc.toLowerCase().includes(searchedVal.toLowerCase())
+          );
+        })
+      : [];
+    setRows(filteredRows);
+  };
+
+  const cancelSearch = () => {
+    setSearched("");
+    requestSearch("");
+  };
+
+  useEffect(() => {
+    if (!!allzone) {
+      cancelSearch();
+    }
+  }, [allzone]);
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -50,12 +80,36 @@ const ZoneMainView = ({ allzone }: ZoneViewProps) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  const styles = {
-    marginRight: '50px',
+  const del = () => {
+    setOpen(false);
+    Delete(id);
   };
+  const styles={
+      marginRight:'50px'
+  }
 
   return (
     <>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">{"Delete"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this zone?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={() => setOpen(false)}>
+            No
+          </Button>
+          <Button onClick={() => del()} autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Paper
         sx={{
           width: "100%",
@@ -74,6 +128,22 @@ const ZoneMainView = ({ allzone }: ZoneViewProps) => {
               style={{ width: "100%" }}
               placeholder="Search..."
               id="fullWidth"
+              value={searched}
+              onChange={(e: any) => (
+                requestSearch(e.target.value), setSearched(e.target.value)
+              )}
+              InputProps={{
+                endAdornment:
+                  !!searched && searched.length > 0 ? (
+                    <IconButton color="primary" onClick={() => cancelSearch()}>
+                      <CloseIcon />
+                    </IconButton>
+                  ) : (
+                    <IconButton color="primary">
+                      <SearchIcon />
+                    </IconButton>
+                  ),
+              }}
             />
           </Grid>
         </Grid>
@@ -89,8 +159,8 @@ const ZoneMainView = ({ allzone }: ZoneViewProps) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {!!allzone &&
-                allzone
+              {!!rows &&
+                rows
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
                     return (
@@ -111,6 +181,9 @@ const ZoneMainView = ({ allzone }: ZoneViewProps) => {
                         </StyledTableCell>
                         <StyledTableCell align="center" key={columns[3]}>
                           <Button
+                            onClick={() =>
+                              history.push(`/zone/edit-zone/${row.zone_id}`)
+                            }
                             variant="outlined"
                             color="primary"
                             size="small"
@@ -119,6 +192,7 @@ const ZoneMainView = ({ allzone }: ZoneViewProps) => {
                             Edit
                           </Button>
                           <Button
+                            onClick={() => (SetId(row.zone_id), setOpen(true))}
                             style={{ marginLeft: 10 }}
                             variant="outlined"
                             color="error"
@@ -161,6 +235,7 @@ export default ZoneMainView;
 
 interface ZoneViewProps {
   allzone: ZoneList[];
+  Delete?: any;
 }
 const fabStyle = {
   position: "absolute",

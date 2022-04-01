@@ -1,5 +1,6 @@
 export interface ZoneMain {
   zone_list: ZoneList[];
+  single_zone?: ZoneList;
 }
 
 export interface ZoneList {
@@ -13,6 +14,7 @@ export interface ZoneList {
   zone_desc: string;
   zone_id: number;
   zone_name: string;
+  zone_status: string;
 }
 
 export interface AddZone {

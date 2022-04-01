@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Zone from "./Views/Zone";
@@ -28,8 +28,14 @@ import Footer from "./Common/Footer";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Path from "./Views/Path";
 import Loading from "./Views/Loading/Loading";
+import { SnackbarProvider } from "notistack";
+import { StoreState } from "./models/reduxModels";
+import { connect } from "react-redux";
+import { ErrorModel } from "./models/errorModels";
+import ErrorToster from "./Views/ErrorToster";
 import Station from "./Views/Station";
-function App() {
+
+function App({ error }: Appprops) {
   const [open, setOpen] = useState(true);
   const Main = styled("main", {
     shouldForwardProp: (prop) => prop !== "open",
@@ -54,36 +60,48 @@ function App() {
 
   return (
     <ThemeProvider theme={CescLightTheme}>
-      <div>
-        <Header open={open} setOpen={setOpen} />
-      </div>
-      <div className="Containers">
-        <Loading />
-        <SideNav open={open} setOpen={setOpen} />
-        <Main open={open} className="body-class">
-          <div style={{ position: "fixed", top: 70 }}>
-            <Path />
-          </div>
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={() =>
-                false ? <Redirect to="/dashboard" /> : <Redirect to="/login" />
-              }
-            />
-            <Route path="/login" render={() => <Login />} />
-            <PrivateRoute path="/dashboard" component={Dashboard} />
-            <PrivateRoute path="/zone" component={Zone} />
-            <PrivateRoute path="/station" component={Station} />
-          </Switch>
-        </Main>
-      </div>
-      <div>
-        <Footer />
-      </div>
+      <SnackbarProvider maxSnack={3}>
+        <ErrorToster />
+        <div>
+          <Header open={open} setOpen={setOpen} />
+        </div>
+        <div className="Containers">
+          <Loading />
+          <SideNav open={open} setOpen={setOpen} />
+          <Main open={open} className="body-class">
+            <div style={{ position: "fixed", top: 70 }}>
+              <Path />
+            </div>
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={() =>
+                  false ? (
+                    <Redirect to="/dashboard" />
+                  ) : (
+                    <Redirect to="/login" />
+                  )
+                }
+              />
+              <Route path="/login" render={() => <Login />} />
+              <PrivateRoute path="/dashboard" component={Dashboard} />
+              <PrivateRoute path="/zone" component={Zone} />
+              <PrivateRoute path="/station" component={Station} />
+            </Switch>
+          </Main>
+        </div>
+        <div>
+          <Footer />
+        </div>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 }
-
-export default App;
+const mapStateToProps = (state: StoreState) => {
+  return {};
+};
+export default connect(mapStateToProps)(App);
+interface Appprops {
+  error?: ErrorModel;
+}

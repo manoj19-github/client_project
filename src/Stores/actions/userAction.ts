@@ -33,16 +33,8 @@ export const UserLogin = (payload: any) => {
         }
         dispatch(
           ApiCallErrorAction({
-            Business_Errors: [],
-            Info: [],
-            System_Errors: [
-              {
-                Code: "SE001",
-                Message: "Error",
-                Payload: [],
-              },
-            ],
-            Warnings: [],
+            errorCode: "",
+            message: "Error encountered please try again later",
           })
         );
       });

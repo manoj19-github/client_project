@@ -6,7 +6,7 @@ const InitialState: StoreState = {
     message: "",
   },
   error: {
-    error_repo: [],
+    error: undefined,
   },
   user: {
     userDetails: undefined,
@@ -22,6 +22,7 @@ const InitialState: StoreState = {
   },
   zone: {
     zone_list: [],
+    single_zone: undefined,
   },
 };
 
