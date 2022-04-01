@@ -11,7 +11,7 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { StationList } from "../../../models/stationModel";
 import { ZoneList } from "../../../models/zoneModels";
 
@@ -21,7 +21,14 @@ function StationEditView({
   SingleStation,
 }: StationEditViewProps) {
   const theme = useTheme();
-  const { register, handleSubmit, formState, setValue, getValues } = useForm();
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState,
+    setValue,
+    getValues,
+  } = useForm();
   const { errors } = formState;
   const onSubmit = (props: any) => {
     submitData({
@@ -42,7 +49,7 @@ function StationEditView({
       setValue("station_code", SingleStation.station_code);
       setValue("station_name", SingleStation.station_name);
       setValue("station_type", SingleStation.station_type);
-      setValue("zone_id", SingleStation.zone_id);
+      setValue("zone_id", SingleStation.zone_id.toString());
     }
   }, [SingleStation]);
 
@@ -107,36 +114,44 @@ function StationEditView({
               <Typography>:</Typography>
             </Grid>
             <Grid item xs={5}>
-              <TextField
-                {...register("station_type", { required: true })}
-                style={{ width: "100%", margin: "5px" }}
-                variant="outlined"
-                select
-                size="small"
-                name="station_type"
-                placeholder="Select Station Type"
-                error={!!errors["station_type"]}
-                defaultValue={"n"}
-              >
-                <MenuItem key={"dd"} value={"n"} style={{ color: "#B3B3B3" }}>
-                  Select Station Type
-                </MenuItem>
-                <MenuItem key={"S/S"} value={"S/S"}>
-                  S/S
-                </MenuItem>
-                <MenuItem key={"R/S"} value={"R/S"}>
-                  R/S
-                </MenuItem>
-                <MenuItem key={"G/S"} value={"G/S"}>
-                  G/S
-                </MenuItem>
-                <MenuItem key={"D/S"} value={"D/S"}>
-                  D/S
-                </MenuItem>
-                <MenuItem key={"ARMU"} value={"ARMU"}>
-                  ARMU
-                </MenuItem>
-              </TextField>
+              <Controller
+                control={control}
+                name={"station_type"}
+                defaultValue={""}
+                render={({ field: { onBlur, value, onChange } }) => (
+                  <TextField
+                    style={{ width: "100%", margin: "5px" }}
+                    variant="outlined"
+                    select
+                    size="small"
+                    onBlur={onBlur}
+                    name="station_type"
+                    defaultValue={""}
+                    placeholder="Select Station Type"
+                    error={!!errors["station_type"]}
+                    value={value}
+                    onChange={(value) =>
+                      onChange(value.target.value.toString())
+                    }
+                  >
+                    <MenuItem key={"S/S"} value={"S/S"}>
+                      S/S
+                    </MenuItem>
+                    <MenuItem key={"R/S"} value={"R/S"}>
+                      R/S
+                    </MenuItem>
+                    <MenuItem key={"G/S"} value={"G/S"}>
+                      G/S
+                    </MenuItem>
+                    <MenuItem key={"D/S"} value={"D/S"}>
+                      D/S
+                    </MenuItem>
+                    <MenuItem key={"ARMU"} value={"ARMU"}>
+                      ARMU
+                    </MenuItem>
+                  </TextField>
+                )}
+              />
             </Grid>
           </Grid>
           <Grid container justifyContent="center" alignItems={"center"}>
@@ -147,28 +162,36 @@ function StationEditView({
               <Typography>:</Typography>
             </Grid>
             <Grid item xs={5}>
-              <TextField
-                {...register("zone_id", { required: true })}
-                style={{ width: "100%", margin: "5px" }}
-                type="text"
-                variant="outlined"
-                size="small"
-                select
-                name="zone_id"
-                placeholder="Select zone_id"
-                error={!!errors["zone_id"]}
-                defaultValue={-1}
-              >
-                <MenuItem key={0} value={-1} style={{ color: "#B3B3B3" }}>
-                  Select Zone
-                </MenuItem>
-                {!!allzone &&
-                  allzone.map((option, index) => (
-                    <MenuItem key={index} value={option.zone_id}>
-                      {option.zone_name}
-                    </MenuItem>
-                  ))}
-              </TextField>
+              <Controller
+                control={control}
+                name={"zone_id"}
+                defaultValue={""}
+                render={({ field: { onBlur, value, onChange } }) => (
+                  <TextField
+                    style={{ width: "100%", margin: "5px" }}
+                    type="text"
+                    variant="outlined"
+                    size="small"
+                    onBlur={onBlur}
+                    value={value}
+                    select
+                    name="zone_id"
+                    onChange={(value) =>
+                      onChange(value.target.value.toString())
+                    }
+                    placeholder="Select zone_id"
+                    error={!!errors["zone_id"]}
+                    defaultValue={""}
+                  >
+                    {!!allzone &&
+                      allzone.map((option, index) => (
+                        <MenuItem value={option.zone_id.toString()}>
+                          {option.zone_name}
+                        </MenuItem>
+                      ))}
+                  </TextField>
+                )}
+              />
             </Grid>
           </Grid>
           <Grid container justifyContent="center" alignItems={"center"}>

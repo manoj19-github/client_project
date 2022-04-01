@@ -170,14 +170,11 @@ const StationMainView = ({ allstation, Delete, allzone }: StationViewProps) => {
               select
               size="small"
               placeholder="Select Zone"
+              defaultValue={""}
             >
-              <MenuItem key={-1} value={-1}>
-                All Zone
-              </MenuItem>
+              <MenuItem value={"0"}>All Zone</MenuItem>
               {allzone.map((option) => (
-                <MenuItem key={option.zone_id} value={option.zone_id}>
-                  {option.zone_name}
-                </MenuItem>
+                <MenuItem value={option.zone_id}>{option.zone_name}</MenuItem>
               ))}
             </TextField>
           </Grid>
