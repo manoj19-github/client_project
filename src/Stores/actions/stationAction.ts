@@ -25,24 +25,15 @@ export enum StationActionTypes {
           }
         })
         .catch((error) => {
-          if (error.response.status === 401) {
-            // showToast("Please Login again to continue.");
-            dispatch(UserLogoutSuccess());
-          }
-          dispatch(
-            ApiCallErrorAction({
-              Business_Errors: [],
-              Info: [],
-              System_Errors: [
-                {
-                  Code: "SE001",
-                  Message: "Error",
-                  Payload: [],
-                },
-              ],
-              Warnings: [],
-            })
-          );
+            if (error.response.status === 401) {
+                dispatch(UserLogoutSuccess());
+              }
+              dispatch(
+                ApiCallErrorAction({
+                  errorCode: "",
+                  message: "Error encountered please try again later",
+                })
+              );
         });
     };
   };
@@ -69,23 +60,15 @@ export enum StationActionTypes {
           }
         })
         .catch((error) => {
-          if (error.response.status === 401) {
-            dispatch(UserLogoutSuccess());
-          }
-          dispatch(
-            ApiCallErrorAction({
-              Business_Errors: [],
-              Info: [],
-              System_Errors: [
-                {
-                  Code: "SE001",
-                  Message: "Error",
-                  Payload: [],
-                },
-              ],
-              Warnings: [],
-            })
-          );
+            if (error.response.status === 401) {
+                dispatch(UserLogoutSuccess());
+              }
+              dispatch(
+                ApiCallErrorAction({
+                  errorCode: "",
+                  message: "Error encountered please try again later",
+                })
+              );
         });
     };
   };
