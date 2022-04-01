@@ -1,4 +1,5 @@
 import { baseServiceUrl, environment } from "../environment";
+import { AddStation, StationList } from "../models/stationModel";
 import { UserLoginModel } from "../models/userModels";
 import { AddZone, ZoneList } from "../models/zoneModels";
 import RestService from "./rest";
@@ -22,8 +23,8 @@ export const ZoneAddService = (data: AddZone) => {
 export const GetAllStation = () => {
   return serviceClient.get(environment.url.GetAllStationUrl);
 };
-  
-export const StationAddService = (data: AddZone) => {
+
+export const StationAddService = (data: AddStation) => {
   return serviceClient.post(environment.url.StationAdddUrl, data);
 };
 export const DeleteZone = (data: number) => {
@@ -34,4 +35,15 @@ export const GetZoneById = (data: number) => {
 };
 export const ZoneEdit = (data: ZoneList) => {
   return serviceClient.post(environment.url.ZoneUpdateUrl, data);
+};
+
+export const DeleteStation = (data: number) => {
+  return serviceClient.get(environment.url.StationDeleteUrl + "/" + data);
+};
+
+export const GetStationById = (data: number) => {
+  return serviceClient.get(environment.url.StationGetByIdUrl + "/" + data);
+};
+export const StationEdit = (data: StationList) => {
+  return serviceClient.post(environment.url.StationUpdateUrl, data);
 };

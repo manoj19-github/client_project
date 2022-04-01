@@ -26,8 +26,8 @@ export const GetAllZones = () => {
     );
     return GetAllZone()
       .then((response) => {
-        if (!!(<ErrorModel>response.data.Errors)) {
-          dispatch(ApiCallErrorAction(response.data.Errors));
+        if (response.status != 200) {
+          dispatch(ApiCallErrorAction(response.data));
         } else {
           dispatch(GetAllZoneSuccess(response.data));
         }
@@ -61,8 +61,8 @@ export const AddZones = (data: any) => {
     );
     return ZoneAddService(data.payload)
       .then(async (response) => {
-        if (!!(<ErrorModel>response.data.Errors)) {
-          dispatch(ApiCallErrorAction(response.data.Errors));
+        if (response.status != 200) {
+          dispatch(ApiCallErrorAction(response.data));
         } else {
           data.history.replace("/zone");
           await data.enqueueSnackbar("Zone Successfully Added!", {
@@ -99,8 +99,8 @@ export const DeleteZones = (data: any) => {
     );
     return DeleteZone(data.payload)
       .then(async (response) => {
-        if (!!(<ErrorModel>response.data.Errors)) {
-          dispatch(ApiCallErrorAction(response.data.Errors));
+        if (response.status != 200) {
+          dispatch(ApiCallErrorAction(response.data));
         } else {
           await data.enqueueSnackbar("Deleted Successfully!", {
             variant: "success",
@@ -137,7 +137,7 @@ export const GetZonesByIds = (data: number) => {
     );
     return GetZoneById(data)
       .then((response) => {
-        if (!!(<ErrorModel>response.data.Errors)) {
+        if (response.status != 200) {
           dispatch(ApiCallErrorAction(response.data.Errors));
         } else {
           dispatch(GetZoneByIdSuccess(response.data));
@@ -174,7 +174,7 @@ export const UpdateZones = (data: any) => {
     );
     return ZoneEdit(data.payload)
       .then(async (response) => {
-        if (!!(<ErrorModel>response.data.Errors)) {
+        if (response.status != 200) {
           dispatch(ApiCallErrorAction(response.data.Errors));
         } else {
           data.history.replace("/zone");

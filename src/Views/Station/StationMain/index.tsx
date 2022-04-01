@@ -1,16 +1,38 @@
+import { useSnackbar } from "notistack";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { StoreState } from "../../../models/reduxModels";
 import { StationList } from "../../../models/stationModel";
 import { ZoneList } from "../../../models/zoneModels";
-import { GetAllStations } from "../../../Stores/actions/stationAction";
+import {
+  DeleteStations,
+  GetAllStations,
+} from "../../../Stores/actions/stationAction";
 import StationMainView from "./StationMainView";
 
-const StationMain = ({ allstation, GetAllStations, allzone }: StationProps) => {
+const StationMain = ({
+  allstation,
+  GetAllStations,
+  allzone,
+  DeleteStations,
+}: StationProps) => {
+  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     GetAllStations();
   }, []);
-  return <StationMainView allstation={allstation} allzone={allzone} />;
+  const Delete = (data: number) => {
+    DeleteStations({
+      payload: data,
+      enqueueSnackbar: enqueueSnackbar,
+    });
+  };
+  return (
+    <StationMainView
+      allstation={allstation}
+      allzone={allzone}
+      Delete={Delete}
+    />
+  );
 };
 
 const mapStateToProps = (state: StoreState) => {
@@ -22,6 +44,7 @@ const mapStateToProps = (state: StoreState) => {
 // export default (StationMain);
 const mapDispatchToProps = {
   GetAllStations,
+  DeleteStations,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StationMain);
@@ -29,4 +52,5 @@ interface StationProps {
   GetAllStations?: any;
   allstation: StationList[];
   allzone: ZoneList[];
+  DeleteStations?: any;
 }

@@ -1,19 +1,21 @@
+import { useSnackbar } from "notistack";
 import React from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { StoreState } from "../../../models/reduxModels";
 import { ZoneList } from "../../../models/zoneModels";
-import { AddZones } from "../../../Stores/actions/zoneActions";
+import { AddStations } from "../../../Stores/actions/stationAction";
 import StationAddView from "./StationAddView";
 
-function AddStation({ AddZones, allzone }: AddZoneProps) {
+function AddStation({ AddStations, allzone }: AddZoneProps) {
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
   const submitData = (data: any) => {
-    // AddZones({
-    //   payload: data,
-    //   history: history,
-    // });
-    console.log(data);
+    AddStations({
+      payload: data,
+      history: history,
+      enqueueSnackbar: enqueueSnackbar,
+    });
   };
   return <StationAddView submitData={submitData} allzone={allzone} />;
 }
@@ -24,11 +26,11 @@ const mapStateToProps = (state: StoreState) => {
   };
 };
 const mapDispatchToProps = {
-  AddZones,
+  AddStations,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddStation);
 interface AddZoneProps {
-  AddZones?: any;
   allzone: ZoneList[];
+  AddStations?: any;
 }

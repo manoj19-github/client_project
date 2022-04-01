@@ -26,6 +26,7 @@ const InitialState: StoreState = {
   },
   station: {
     station_list: [],
+    single_station: undefined,
   },
 };
 

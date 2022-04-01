@@ -17,7 +17,7 @@ export const UserLogin = (payload: any) => {
     );
     return UserLoginService(payload.data)
       .then((response) => {
-        if (!!(<ErrorModel>response.data.Errors)) {
+        if (response.status != 200) {
           dispatch(ApiCallErrorAction(response.data.Errors));
         } else {
           setTimeout(() => {

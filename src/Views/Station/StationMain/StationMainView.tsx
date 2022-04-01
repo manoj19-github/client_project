@@ -41,6 +41,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 import { ZoneList } from "../../../models/zoneModels";
 const StationMainView = ({ allstation, Delete, allzone }: StationViewProps) => {
+  const history = useHistory();
   const columns: any[] = [
     "Station Name",
     "Station Code",
@@ -52,7 +53,6 @@ const StationMainView = ({ allstation, Delete, allzone }: StationViewProps) => {
   ];
   const [open, setOpen] = useState<boolean>(false);
   const [id, SetId] = useState<number>(-1);
-  const history = useHistory();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [rows, setRows] = useState<StationList[]>([]);
@@ -114,7 +114,7 @@ const StationMainView = ({ allstation, Delete, allzone }: StationViewProps) => {
         <DialogTitle id="responsive-dialog-title">{"Delete"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this zone?
+            Are you sure you want to delete this Station?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -203,7 +203,7 @@ const StationMainView = ({ allstation, Delete, allzone }: StationViewProps) => {
                         hover
                         role="checkbox"
                         tabIndex={-1}
-                        key={row.zone_id}
+                        key={row.station_id}
                       >
                         <StyledTableCell align="center" key={columns[0]}>
                           {row.station_name}
@@ -226,7 +226,9 @@ const StationMainView = ({ allstation, Delete, allzone }: StationViewProps) => {
                         <StyledTableCell align="center" key={columns[6]}>
                           <Button
                             onClick={() =>
-                              history.push(`/zone/edit-zone/${row.zone_id}`)
+                              history.push(
+                                `/station/edit-station/${row.station_id}`
+                              )
                             }
                             variant="outlined"
                             color="primary"
@@ -236,7 +238,9 @@ const StationMainView = ({ allstation, Delete, allzone }: StationViewProps) => {
                             Edit
                           </Button>
                           <Button
-                            onClick={() => (SetId(row.zone_id), setOpen(true))}
+                            onClick={() => (
+                              SetId(row.station_id), setOpen(true)
+                            )}
                             style={{ marginLeft: 10 }}
                             variant="outlined"
                             color="error"

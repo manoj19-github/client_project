@@ -5,9 +5,12 @@ export const environment = {
     GetAllZoneUrl: "api/v1/zones/getall ",
     ZoneAdddUrl: "api/v1/zones/create",
     GetAllStationUrl: "api/v1/stations/getall",
-    StationAdddUrl: "",
+    StationAdddUrl: "api/v1/stations/create",
     DeleteZoneUrl: "api/v1/zones/delete",
     ZoneGetByIdUrl: "api/v1/zones",
     ZoneUpdateUrl: "api/v1/zones/update",
+    StationDeleteUrl: "api/v1/stations/delete",
+    StationGetByIdUrl: "api/v1/stations",
+    StationUpdateUrl: "api/v1/stations/update",
   },
 };

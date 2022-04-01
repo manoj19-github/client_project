@@ -8,13 +8,20 @@ import {
   Paper,
   TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { StationList } from "../../../models/stationModel";
 import { ZoneList } from "../../../models/zoneModels";
 
-function StationAddView({ submitData, allzone }: StationAddViewProps) {
-  const { register, handleSubmit, formState, setValue } = useForm();
+function StationEditView({
+  submitData,
+  allzone,
+  SingleStation,
+}: StationEditViewProps) {
+  const theme = useTheme();
+  const { register, handleSubmit, formState, setValue, getValues } = useForm();
   const { errors } = formState;
   const onSubmit = (props: any) => {
     submitData({
@@ -27,12 +34,23 @@ function StationAddView({ submitData, allzone }: StationAddViewProps) {
       zone_id: props.zone_id,
     });
   };
+  useEffect(() => {
+    if (!!SingleStation) {
+      setValue("lattitude", SingleStation.lattitude);
+      setValue("longitude", SingleStation.longitude);
+      setValue("station_address", SingleStation.station_address);
+      setValue("station_code", SingleStation.station_code);
+      setValue("station_name", SingleStation.station_name);
+      setValue("station_type", SingleStation.station_type);
+      setValue("zone_id", SingleStation.zone_id);
+    }
+  }, [SingleStation]);
 
   return (
     <Card sx={{}}>
       <CardHeader
         style={{ backgroundColor: "#00AAEE", color: "#fff" }}
-        title="Add Station"
+        title="Edit Station"
       />
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -74,7 +92,6 @@ function StationAddView({ submitData, allzone }: StationAddViewProps) {
                 style={{ width: "100%", margin: "5px" }}
                 type="text"
                 variant="outlined"
-                label=" Station Name"
                 size="small"
                 name="station_name"
                 placeholder="Type Station Name"
@@ -99,7 +116,11 @@ function StationAddView({ submitData, allzone }: StationAddViewProps) {
                 name="station_type"
                 placeholder="Select Station Type"
                 error={!!errors["station_type"]}
+                defaultValue={"n"}
               >
+                <MenuItem key={"dd"} value={"n"} style={{ color: "#B3B3B3" }}>
+                  Select Station Type
+                </MenuItem>
                 <MenuItem key={"S/S"} value={"S/S"}>
                   S/S
                 </MenuItem>
@@ -136,12 +157,17 @@ function StationAddView({ submitData, allzone }: StationAddViewProps) {
                 name="zone_id"
                 placeholder="Select zone_id"
                 error={!!errors["zone_id"]}
+                defaultValue={-1}
               >
-                {allzone.map((option) => (
-                  <MenuItem key={option.zone_id} value={option.zone_id}>
-                    {option.zone_name}
-                  </MenuItem>
-                ))}
+                <MenuItem key={0} value={-1} style={{ color: "#B3B3B3" }}>
+                  Select Zone
+                </MenuItem>
+                {!!allzone &&
+                  allzone.map((option, index) => (
+                    <MenuItem key={index} value={option.zone_id}>
+                      {option.zone_name}
+                    </MenuItem>
+                  ))}
               </TextField>
             </Grid>
           </Grid>
@@ -223,9 +249,10 @@ function StationAddView({ submitData, allzone }: StationAddViewProps) {
   );
 }
 
-export default StationAddView;
+export default StationEditView;
 
-interface StationAddViewProps {
+interface StationEditViewProps {
   submitData?: any;
   allzone: ZoneList[];
+  SingleStation?: StationList;
 }

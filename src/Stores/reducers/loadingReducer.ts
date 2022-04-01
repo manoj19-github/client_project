@@ -34,6 +34,14 @@ export default function LoadingReducer(
       return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
     case StationActionTypes.Station_GetAll_Success:
       return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
+    case StationActionTypes.Station_Add_Success_Action:
+      return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
+    case StationActionTypes.Station_Delete_Success_Action:
+      return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
+    case StationActionTypes.Get_Station_By_Id_Success_Action:
+      return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
+    case StationActionTypes.Update_Station_Success_Action:
+      return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
     default:
       return state;
   }
