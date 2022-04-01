@@ -28,6 +28,7 @@ import Footer from "./Common/Footer";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Path from "./Views/Path";
 import Loading from "./Views/Loading/Loading";
+import Station from "./Views/Station";
 function App() {
   const [open, setOpen] = useState(true);
   const Main = styled("main", {
@@ -74,6 +75,7 @@ function App() {
             <Route path="/login" render={() => <Login />} />
             <PrivateRoute path="/dashboard" component={Dashboard} />
             <PrivateRoute path="/zone" component={Zone} />
+            <PrivateRoute path="/station" component={Station} />
           </Switch>
         </Main>
       </div>

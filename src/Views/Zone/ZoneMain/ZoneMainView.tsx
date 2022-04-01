@@ -30,6 +30,9 @@ import { green } from "@mui/material/colors";
 import { useHistory } from "react-router-dom";
 import { ZoneList } from "../../../models/zoneModels";
 import DeleteIcon from "@mui/icons-material/Delete";
+
+
+
 const ZoneMainView = ({ allzone }: ZoneViewProps) => {
   const columns: any[] = ["Zone Name", "Zone Code", "Description", "Action"];
   const history = useHistory();
@@ -46,6 +49,9 @@ const ZoneMainView = ({ allzone }: ZoneViewProps) => {
   ) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+  const styles = {
+    marginRight: '50px',
   };
 
   return (
@@ -129,6 +135,7 @@ const ZoneMainView = ({ allzone }: ZoneViewProps) => {
           </Table>
         </TableContainer>
         <TablePagination
+            style={styles}
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
           count={allzone.length}

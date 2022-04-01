@@ -18,3 +18,11 @@ export const GetAllZone = () => {
 export const ZoneAddService = (data: AddZone) => {
   return serviceClient.post(environment.url.ZoneAdddUrl, data);
 };
+
+export const GetAllStation = () => {
+  return serviceClient.get(environment.url.GetAllStationUrl);
+};
+  
+export const StationAddService = (data: AddZone) => {
+  return serviceClient.post(environment.url.StationAdddUrl, data);
+};
