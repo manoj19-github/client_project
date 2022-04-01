@@ -27,6 +27,7 @@ import {
   DialogContentText,
   DialogTitle,
   IconButton,
+  MenuItem,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
@@ -38,7 +39,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { StationList } from "../../../models/stationModel";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
-const StationMainView = ({ allstation, Delete }: StationViewProps) => {
+import { ZoneList } from "../../../models/zoneModels";
+const StationMainView = ({ allstation, Delete, allzone }: StationViewProps) => {
   const columns: any[] = [
     "Station Name",
     "Station Code",
@@ -136,7 +138,8 @@ const StationMainView = ({ allstation, Delete }: StationViewProps) => {
           alignItems="center"
           margin={1}
         >
-          <Grid item xs={8}>
+          <Grid item xs={3}></Grid>
+          <Grid item xs={5}>
             <TextField
               size="small"
               style={{ width: "100%" }}
@@ -159,6 +162,24 @@ const StationMainView = ({ allstation, Delete }: StationViewProps) => {
                   ),
               }}
             />
+          </Grid>
+          <Grid item xs={3}>
+            <TextField
+              style={{ marginLeft: "10px", width: "80%" }}
+              id="outlined-select-currency"
+              select
+              size="small"
+              placeholder="Select Zone"
+            >
+              <MenuItem key={-1} value={-1}>
+                All Zone
+              </MenuItem>
+              {allzone.map((option) => (
+                <MenuItem key={option.zone_id} value={option.zone_id}>
+                  {option.zone_name}
+                </MenuItem>
+              ))}
+            </TextField>
           </Grid>
         </Grid>
         <TableContainer sx={{ maxHeight: 480 }}>
@@ -193,16 +214,16 @@ const StationMainView = ({ allstation, Delete }: StationViewProps) => {
                         <StyledTableCell align="center" key={columns[2]}>
                           {row.station_address}
                         </StyledTableCell>
-                        <StyledTableCell align="center" key={columns[2]}>
+                        <StyledTableCell align="center" key={columns[3]}>
                           {row.station_type}
                         </StyledTableCell>
-                        <StyledTableCell align="center" key={columns[2]}>
+                        <StyledTableCell align="center" key={columns[4]}>
                           {row.lattitude}
                         </StyledTableCell>
-                        <StyledTableCell align="center" key={columns[2]}>
+                        <StyledTableCell align="center" key={columns[5]}>
                           {row.longitude}
                         </StyledTableCell>
-                        <StyledTableCell align="center" key={columns[3]}>
+                        <StyledTableCell align="center" key={columns[6]}>
                           <Button
                             onClick={() =>
                               history.push(`/zone/edit-zone/${row.zone_id}`)
@@ -259,6 +280,7 @@ export default StationMainView;
 interface StationViewProps {
   allstation: StationList[];
   Delete?: any;
+  allzone: ZoneList[];
 }
 const fabStyle = {
   position: "absolute",
@@ -270,15 +292,18 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "#00AAEE",
     color: theme.palette.common.white,
+    padding: 10,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+    padding: 10,
   },
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
+    padding: 10,
   },
   "&:last-child td, &:last-child th": {
     border: 0,

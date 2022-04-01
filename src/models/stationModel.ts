@@ -19,7 +19,11 @@ export interface StationList {
 }
 
 export interface AddStation {
-  zone_code: string;
-  zone_name: string;
-  zone_desc: string;
+  station_code: string;
+  station_name: string;
+  lattitude: number;
+  longitude: number;
+  station_address: string;
+  station_type: string;
+  zone_id: number;
 }

@@ -10,7 +10,7 @@ export default function StationReducer(
 ) {
   switch (action.type) {
     case StationActionTypes.Station_GetAll_Success:
-      return { ...state, station_list: action.payload };
+      return { ...state, station_list: action.payload.station };
     default:
       return state;
   }
