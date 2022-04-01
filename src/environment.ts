@@ -4,7 +4,7 @@ export const environment = {
     LoginUrl: "api/v1/login",
     GetAllZoneUrl: "api/v1/zones/getall ",
     ZoneAdddUrl: "api/v1/zones/create",
-    GetAllStationUrl:"",
+    GetAllStationUrl: "api/v1/stations/getall",
     StationAdddUrl: "",
     DeleteZoneUrl: "api/v1/zones/delete",
     ZoneGetByIdUrl: "api/v1/zones",

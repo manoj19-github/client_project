@@ -24,6 +24,9 @@ const InitialState: StoreState = {
     zone_list: [],
     single_zone: undefined,
   },
+  station: {
+    station_list: [],
+  },
 };
 
 export default InitialState;

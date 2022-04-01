@@ -1,5 +1,6 @@
 import { LoadingState } from "../../models/loadingModelss";
 import { ApiStatusActionTypes } from "../actions/apiStatusActions";
+import { StationActionTypes } from "../actions/stationAction";
 import { UserActionTypes } from "../actions/userAction";
 import { ZoneActionTypes } from "../actions/zoneActions";
 import InitialState from "./initialState";
@@ -30,6 +31,8 @@ export default function LoadingReducer(
     case ZoneActionTypes.Get_Zone_By_Id_Success_Action:
       return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
     case ZoneActionTypes.Update_Zone_Success_Action:
+      return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
+    case StationActionTypes.Station_GetAll_Success:
       return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
     default:
       return state;
