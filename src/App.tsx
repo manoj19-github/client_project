@@ -34,6 +34,7 @@ import { connect } from "react-redux";
 import { ErrorModel } from "./models/errorModels";
 import ErrorToster from "./Views/ErrorToster";
 import Station from "./Views/Station";
+import FMSLocation from "./Views/FMSLocation";
 
 function App({ error }: Appprops) {
   const [open, setOpen] = useState(true);
@@ -88,6 +89,7 @@ function App({ error }: Appprops) {
               <PrivateRoute path="/dashboard" component={Dashboard} />
               <PrivateRoute path="/zone" component={Zone} />
               <PrivateRoute path="/station" component={Station} />
+              <PrivateRoute path="/fms-location" component={FMSLocation} />
             </Switch>
           </Main>
         </div>

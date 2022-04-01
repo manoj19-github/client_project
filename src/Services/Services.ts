@@ -1,4 +1,5 @@
 import { baseServiceUrl, environment } from "../environment";
+import { AddFMSLocation } from "../models/fmsLocationModel";
 import { AddStation, StationList } from "../models/stationModel";
 import { UserLoginModel } from "../models/userModels";
 import { AddZone, ZoneList } from "../models/zoneModels";
@@ -36,7 +37,22 @@ export const GetZoneById = (data: number) => {
 export const ZoneEdit = (data: ZoneList) => {
   return serviceClient.post(environment.url.ZoneUpdateUrl, data);
 };
-
+    // FMSLocation
+export const GetAllFMSLocation = () => {
+  return serviceClient.get(environment.url.GetAllFMSLocationUrl);
+};
+export const FMSLocationAddService = (data: AddFMSLocation) => {
+  return serviceClient.post(environment.url.FMSLocationAdddUrl, data);
+};
+export const DeleteFMSLocation = (data: number) => {
+  return serviceClient.get(environment.url.DeleteFMSLocationUrl + "/" + data);
+};
+export const GetFMSLocationById = (data: number) => {
+  return serviceClient.get(environment.url.FMSLocationGetByIdUrl + "/" + data);
+};
+export const FMSLocationEdit = (data: ZoneList) => {
+  return serviceClient.post(environment.url.FMSLocationUpdateUrl, data);
+}
 export const DeleteStation = (data: number) => {
   return serviceClient.get(environment.url.StationDeleteUrl + "/" + data);
 };

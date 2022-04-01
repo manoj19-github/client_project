@@ -1,4 +1,5 @@
 import { ErrorState } from "./errorModels";
+import { FMSLocationMain } from "./fmsLocationModel";
 import { LoadingState } from "./loadingModelss";
 import { StationMain } from "./stationModel";
 import { UserMain } from "./userModels";
@@ -9,5 +10,6 @@ export interface StoreState {
   error: ErrorState;
   user: UserMain;
   zone: ZoneMain;
+  fmslocation: FMSLocationMain;
   station: StationMain;
 }
