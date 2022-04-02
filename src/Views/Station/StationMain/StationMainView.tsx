@@ -184,7 +184,7 @@ const StationMainView = ({ allstation, Delete, allzone }: StationViewProps) => {
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
-                  <StyledTableCell align="center" key={column}>
+                  <StyledTableCell align="left" key={column}>
                     {column}
                   </StyledTableCell>
                 ))}
@@ -202,25 +202,25 @@ const StationMainView = ({ allstation, Delete, allzone }: StationViewProps) => {
                         tabIndex={-1}
                         key={row.station_id}
                       >
-                        <StyledTableCell align="center" key={columns[0]}>
+                        <StyledTableCell align="left" key={columns[0]}>
                           {row.station_name}
                         </StyledTableCell>
-                        <StyledTableCell align="center" key={columns[1]}>
+                        <StyledTableCell align="left" key={columns[1]}>
                           {row.station_code}
                         </StyledTableCell>
-                        <StyledTableCell align="center" key={columns[2]}>
+                        <StyledTableCell align="left" key={columns[2]}>
                           {row.station_address}
                         </StyledTableCell>
-                        <StyledTableCell align="center" key={columns[3]}>
+                        <StyledTableCell align="left" key={columns[3]}>
                           {row.station_type}
                         </StyledTableCell>
-                        <StyledTableCell align="center" key={columns[4]}>
+                        <StyledTableCell align="left" key={columns[4]}>
                           {row.lattitude}
                         </StyledTableCell>
-                        <StyledTableCell align="center" key={columns[5]}>
+                        <StyledTableCell align="left" key={columns[5]}>
                           {row.longitude}
                         </StyledTableCell>
-                        <StyledTableCell align="center" key={columns[6]}>
+                        <StyledTableCell align="left" key={columns[6]}>
                           <Button
                             onClick={() =>
                               history.push(
@@ -294,18 +294,19 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     backgroundColor: "#00AAEE",
     color: theme.palette.common.white,
     padding: 10,
+    paddingLeft: 15,
     fontWeight: 700,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
-    padding: 10,
+    padding: 8,
+    paddingLeft: 15,
   },
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
-    padding: 10,
   },
   "&:last-child td, &:last-child th": {
     border: 0,

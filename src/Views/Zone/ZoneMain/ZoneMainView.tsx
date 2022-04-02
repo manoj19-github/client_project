@@ -148,11 +148,15 @@ const ZoneMainView = ({ allzone, Delete }: ZoneViewProps) => {
           </Grid>
         </Grid>
         <TableContainer sx={{ maxHeight: 480 }}>
-          <Table stickyHeader aria-label="sticky table">
+          <Table
+            stickyHeader
+            aria-label="sticky table"
+            style={{ tableLayout: "fixed" }}
+          >
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
-                  <StyledTableCell align="center" key={column}>
+                  <StyledTableCell align="justify" key={column}>
                     {column}
                   </StyledTableCell>
                 ))}
@@ -170,16 +174,16 @@ const ZoneMainView = ({ allzone, Delete }: ZoneViewProps) => {
                         tabIndex={-1}
                         key={row.zone_id}
                       >
-                        <StyledTableCell align="center" key={columns[0]}>
+                        <StyledTableCell align="left" key={columns[0]}>
                           {row.zone_name}
                         </StyledTableCell>
-                        <StyledTableCell align="center" key={columns[1]}>
+                        <StyledTableCell align="left" key={columns[1]}>
                           {row.zone_code}
                         </StyledTableCell>
-                        <StyledTableCell align="center" key={columns[2]}>
+                        <StyledTableCell align="left" key={columns[2]}>
                           {row.zone_desc}
                         </StyledTableCell>
-                        <StyledTableCell align="center" key={columns[3]}>
+                        <StyledTableCell align="left" key={columns[3]}>
                           <Button
                             onClick={() =>
                               history.push(`/zone/edit-zone/${row.zone_id}`)
@@ -248,11 +252,13 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     backgroundColor: "#00AAEE",
     color: theme.palette.common.white,
     padding: 10,
+    paddingLeft: 15,
     fontWeight: 700,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
-    padding: 10,
+    padding: 8,
+    paddingLeft: 15,
   },
 }));
 
