@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import { StationList } from "../../../models/stationModel";
 import { ZoneList } from "../../../models/zoneModels";
 
@@ -20,6 +21,7 @@ function StationEditView({
   allzone,
   SingleStation,
 }: StationEditViewProps) {
+  const history = useHistory();
   const theme = useTheme();
   const {
     control,
@@ -54,9 +56,13 @@ function StationEditView({
   }, [SingleStation]);
 
   return (
-    <Card sx={{}}>
+    <Card sx={{ marginTop: "10px" }}>
       <CardHeader
-        style={{ backgroundColor: "#00AAEE", color: "#fff" }}
+        titleTypographyProps={{ fontWeight: 600 }}
+        style={{
+          backgroundColor: "#00AAEE",
+          color: "#fff",
+        }}
         title="Edit Station"
       />
       <CardContent>
@@ -255,6 +261,18 @@ function StationEditView({
             </Grid>
           </Grid>
           <Grid container justifyContent="center" alignItems={"center"}>
+            <Button
+              onClick={() => history.push(`/station`)}
+              style={{
+                color: "#fff",
+                marginRight: 10,
+                background: "#C1B4B3",
+              }}
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Back
+            </Button>
             <Grid item xs={2}>
               <Button
                 type="submit"

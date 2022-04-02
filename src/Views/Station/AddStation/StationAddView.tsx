@@ -11,9 +11,11 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import { ZoneList } from "../../../models/zoneModels";
 
 function StationAddView({ submitData, allzone }: StationAddViewProps) {
+  const history = useHistory();
   const { register, handleSubmit, formState, setValue } = useForm();
   const { errors } = formState;
   const onSubmit = (props: any) => {
@@ -29,9 +31,10 @@ function StationAddView({ submitData, allzone }: StationAddViewProps) {
   };
 
   return (
-    <Card sx={{}}>
+    <Card sx={{ marginTop: "10px" }}>
       <CardHeader
         style={{ backgroundColor: "#00AAEE", color: "#fff" }}
+        titleTypographyProps={{ fontWeight: 600 }}
         title="Add Station"
       />
       <CardContent>
@@ -206,7 +209,19 @@ function StationAddView({ submitData, allzone }: StationAddViewProps) {
             </Grid>
           </Grid>
           <Grid container justifyContent="center" alignItems={"center"}>
-            <Grid item xs={2}>
+            <Button
+              onClick={() => history.push(`/station`)}
+              style={{
+                color: "#fff",
+                marginRight: 10,
+                background: "#C1B4B3",
+              }}
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Back
+            </Button>
+            <Grid item>
               <Button
                 type="submit"
                 style={{ color: "#fff" }}

@@ -294,6 +294,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     backgroundColor: "#00AAEE",
     color: theme.palette.common.white,
     padding: 10,
+    fontWeight: 700,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,

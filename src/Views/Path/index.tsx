@@ -30,9 +30,9 @@ const Path = (props: any) => {
       location.pathname != "/dashboard/dashboard-main" ? (
         <div style={{ margin: 5 }}>
           <Breadcrumbs aria-label="breadcrumb">
-            <StyledBreadcrumb component="a" href="#" label="Zone" />
-            <StyledBreadcrumb component="a" href="#" label="Station" />
-            <StyledBreadcrumb component="a" href="#" label="FMS Location" />
+            <StyledBreadcrumb component="a" href="#" label="XXXX" />
+            <StyledBreadcrumb component="a" href="#" label="XXXX" />
+            <StyledBreadcrumb component="a" href="#" label="XXXX" />
           </Breadcrumbs>
         </div>
       ) : (
