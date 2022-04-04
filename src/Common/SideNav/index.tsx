@@ -69,7 +69,7 @@ const SideNav = ({ open, setOpen, userDetail }: SideNavProps) => {
       key: 1,
       Text: "Cable Master",
       icon: <SettingsInputCompositeIcon />,
-      url: "/fms",
+      url: "/cable-master",
       hasPermission: true,
     },
     {

@@ -35,6 +35,7 @@ import { ErrorModel } from "./models/errorModels";
 import ErrorToster from "./Views/ErrorToster";
 import Station from "./Views/Station";
 import FMSLocation from "./Views/FMSLocation";
+import CableMaster from "./Views/CableMaster";
 
 function App({ error }: Appprops) {
   const [open, setOpen] = useState(true);
@@ -90,6 +91,7 @@ function App({ error }: Appprops) {
               <PrivateRoute path="/zone" component={Zone} />
               <PrivateRoute path="/station" component={Station} />
               <PrivateRoute path="/fms-location" component={FMSLocation} />
+              <PrivateRoute path="/cable-master" component={CableMaster} />
             </Switch>
           </Main>
         </div>
