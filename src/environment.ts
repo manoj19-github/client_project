@@ -17,5 +17,6 @@ export const environment = {
     StationDeleteUrl: "api/v1/stations/delete",
     StationGetByIdUrl: "api/v1/stations",
     StationUpdateUrl: "api/v1/stations/update",
+    GetStationByZoneIdUrl: 'api/v1/stations/getbyzone'
   },
 };

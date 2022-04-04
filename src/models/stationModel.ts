@@ -1,6 +1,7 @@
 export interface StationMain {
   station_list: StationList[];
   single_station?: StationList;
+  has_filter?: number| undefined;
 }
 
 export interface StationList {

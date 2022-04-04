@@ -77,7 +77,6 @@ function StationAddView({ submitData, allzone }: StationAddViewProps) {
                 style={{ width: "100%", margin: "5px" }}
                 type="text"
                 variant="outlined"
-                label=" Station Name"
                 size="small"
                 name="station_name"
                 placeholder="Type Station Name"

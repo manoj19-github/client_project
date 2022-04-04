@@ -40,7 +40,7 @@ import { StationList } from "../../../models/stationModel";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 import { ZoneList } from "../../../models/zoneModels";
-const StationMainView = ({ allstation, Delete, allzone }: StationViewProps) => {
+const StationMainView = ({ allstation, Delete, allzone ,FilterData,filters}: StationViewProps) => {
   const history = useHistory();
   const columns: any[] = [
     "Station Name",
@@ -171,6 +171,8 @@ const StationMainView = ({ allstation, Delete, allzone }: StationViewProps) => {
               size="small"
               placeholder="Select Zone"
               defaultValue={"0"}
+              value={filters}
+              onChange={(data)=> FilterData(data.target.value)}
             >
               <MenuItem value={"0"}>All Zone</MenuItem>
               {allzone.map((option) => (
@@ -282,6 +284,8 @@ interface StationViewProps {
   allstation: StationList[];
   Delete?: any;
   allzone: ZoneList[];
+  FilterData?: any;
+  filters?: number
 }
 const fabStyle = {
   position: "absolute",

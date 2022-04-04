@@ -37,12 +37,13 @@ import { useHistory } from "react-router-dom";
 import { ZoneList } from "../../../models/zoneModels";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloseIcon from "@mui/icons-material/Close";
-const ZoneMainView = ({ allzone, Delete }: ZoneViewProps) => {
+import InfoIcon from '@mui/icons-material/Info';
+const ZoneMainView = ({ allzone, Delete,gotoZone }: ZoneViewProps) => {
   const theme = useTheme();
+  const history = useHistory();
   const columns: any[] = ["Zone Name", "Zone Code", "Description", "Action"];
   const [open, setOpen] = useState<boolean>(false);
   const [id, SetId] = useState<number>(-1);
-  const history = useHistory();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [rows, setRows] = useState<ZoneList[]>([]);
@@ -205,6 +206,18 @@ const ZoneMainView = ({ allzone, Delete }: ZoneViewProps) => {
                           >
                             Delete
                           </Button>
+                          <Button
+                            onClick={() =>
+                              gotoZone(row.zone_id)
+                            }
+                            style={{ marginLeft: 10 }}
+                            variant="outlined"
+                            color="primary"
+                            size="small"
+                            startIcon={<InfoIcon />}
+                          >
+                            Detail
+                          </Button>
                         </StyledTableCell>
                       </StyledTableRow>
                     );
@@ -240,6 +253,7 @@ export default ZoneMainView;
 interface ZoneViewProps {
   allzone: ZoneList[];
   Delete?: any;
+  gotoZone?: any
 }
 const fabStyle = {
   position: "absolute",

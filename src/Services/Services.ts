@@ -63,3 +63,6 @@ export const GetStationById = (data: number) => {
 export const StationEdit = (data: StationList) => {
   return serviceClient.post(environment.url.StationUpdateUrl, data);
 };
+export const GetStationByZoneId=(data: number)=> {
+  return serviceClient.post(environment.url.GetStationByZoneIdUrl, {"zone_id": data})
+}

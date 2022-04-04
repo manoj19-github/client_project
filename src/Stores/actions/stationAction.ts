@@ -5,6 +5,7 @@ import {
   GetAllStation,
   GetAllZone,
   GetStationById,
+  GetStationByZoneId,
   StationAddService,
   StationEdit,
 } from "../../Services/Services";
@@ -17,6 +18,8 @@ export enum StationActionTypes {
   Station_Delete_Success_Action = "[STATION] Station Delete Success Action",
   Get_Station_By_Id_Success_Action = "[STATION] Get Station By Id Success Action",
   Update_Station_Success_Action = "[STATION] Update Station Success Action",
+  Get_Station_By_ZoneId_Success_Action='[STATION] Get Station By ZoneId Success Action',
+  Filter_Update_Success_Action='[STATION] Filter Update Success Action'
 }
 export const GetAllStations = () => {
   return (dispatch: any, getState: any) => {
@@ -33,6 +36,7 @@ export const GetAllStations = () => {
         } else if (response[1].status != 200) {
           dispatch(ApiCallErrorAction(response[1].data));
         } else {
+          dispatch(FiltreUpdateSuccessAction(undefined))
           dispatch(
             GetAllStationSuccess({
               station: response[0].data,
@@ -209,4 +213,42 @@ export const UpdateStations = (data: any) => {
 
 export const UpdateStationSuccess = () => {
   return { type: StationActionTypes.Update_Station_Success_Action };
+};
+
+export const getZoneStations = (data: number) => {
+  return (dispatch: any, getState: any) => {
+    dispatch(
+      BeginApiCallAction({
+        count: 1,
+        message: "Loading Zone Please Wait...",
+      })
+    );
+    return GetStationByZoneId(data)
+      .then(async (response) => {
+        if (response.status != 200) {
+          dispatch(ApiCallErrorAction(response.data.Errors));
+        } else {
+          dispatch(FiltreUpdateSuccessAction(data))
+          dispatch(UpdateZoneStationSuccess(response.data));
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          dispatch(UserLogoutSuccess());
+        } else {
+          dispatch(
+            ApiCallErrorAction({
+              errorCode: "",
+              message: "Error encountered please try again later",
+            })
+          );
+        }
+      });
+  };
+};
+export const UpdateZoneStationSuccess = (data: StationList[]) => {
+  return { type: StationActionTypes.Get_Station_By_ZoneId_Success_Action, payload: data };
+};
+export const FiltreUpdateSuccessAction = (data: number | undefined) => {
+  return { type: StationActionTypes.Filter_Update_Success_Action, payload: data };
 };

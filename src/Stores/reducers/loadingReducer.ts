@@ -42,6 +42,8 @@ export default function LoadingReducer(
       return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
     case StationActionTypes.Update_Station_Success_Action:
       return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
+    case StationActionTypes.Get_Station_By_ZoneId_Success_Action:
+      return { ...state, count: state.count > 0 ? state.count - 1 : 0 };
     default:
       return state;
   }
