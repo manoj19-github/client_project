@@ -1,7 +1,9 @@
+import { ZoneList } from "./zoneModels";
+
 export interface StationMain {
   station_list: StationList[];
   single_station?: StationList;
-  has_filter?: number| undefined;
+  has_filter?: ZoneList| undefined;
 }
 
 export interface StationList {

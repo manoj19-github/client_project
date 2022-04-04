@@ -6,6 +6,7 @@ import { StationList } from "../../../models/stationModel";
 import { ZoneList } from "../../../models/zoneModels";
 import {
   DeleteStations,
+  FiltreUpdateSuccessAction,
   GetAllStations,
   getZoneStations,
 } from "../../../Stores/actions/stationAction";
@@ -17,14 +18,15 @@ const StationMain = ({
   allzone,
   DeleteStations,
   getZoneStations,
-  filter
+  filter,
+  FiltreUpdateSuccessAction
 }: StationProps) => {
   const { enqueueSnackbar } = useSnackbar();
   const[filters, SetFilter]= useState<number>(0)
   useEffect(() => {
     if(!!filter){
-      SetFilter(filter)
-      getZoneStations(+filter)
+      SetFilter(filter.zone_id)
+      getZoneStations(+filter.zone_id)
     }else{
       GetAllStations();
       SetFilter(0)
@@ -37,8 +39,12 @@ const StationMain = ({
     });
   };
   const FilterData   =(data: number)=> {
-    SetFilter(data)
-    getZoneStations(+data)
+    if(data != null){
+      const zone = allzone.find(m=> m.zone_id == +data)
+      SetFilter(data)
+      FiltreUpdateSuccessAction(zone)
+      getZoneStations(+data)
+    }
     
   }
   return (
@@ -63,7 +69,8 @@ const mapStateToProps = (state: StoreState) => {
 const mapDispatchToProps = {
   GetAllStations,
   DeleteStations,
-  getZoneStations
+  getZoneStations,
+  FiltreUpdateSuccessAction
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StationMain);
@@ -73,5 +80,6 @@ interface StationProps {
   allzone: ZoneList[];
   DeleteStations?: any;
   getZoneStations?: any;
-  filter?: number |undefined
+  filter?: ZoneList |undefined;
+  FiltreUpdateSuccessAction?: any;
 }

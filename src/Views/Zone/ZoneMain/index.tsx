@@ -19,7 +19,7 @@ const ZoneMain = ({ GetAllZones, allzone, DeleteZones,FiltreUpdateSuccessAction 
       enqueueSnackbar: enqueueSnackbar,
     });
   };
-  const gotoZone=(data: number)=>{
+  const gotoZone=(data: ZoneList)=>{
     FiltreUpdateSuccessAction(data)
     history.push(`/station/station-main`)
   }

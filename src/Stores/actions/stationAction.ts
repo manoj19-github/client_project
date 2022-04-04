@@ -228,7 +228,6 @@ export const getZoneStations = (data: number) => {
         if (response.status != 200) {
           dispatch(ApiCallErrorAction(response.data.Errors));
         } else {
-          dispatch(FiltreUpdateSuccessAction(data))
           dispatch(UpdateZoneStationSuccess(response.data));
         }
       })

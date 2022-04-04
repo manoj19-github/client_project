@@ -208,7 +208,7 @@ const ZoneMainView = ({ allzone, Delete,gotoZone }: ZoneViewProps) => {
                           </Button>
                           <Button
                             onClick={() =>
-                              gotoZone(row.zone_id)
+                              gotoZone(row)
                             }
                             style={{ marginLeft: 10 }}
                             variant="outlined"

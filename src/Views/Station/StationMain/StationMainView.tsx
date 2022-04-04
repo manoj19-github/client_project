@@ -40,6 +40,7 @@ import { StationList } from "../../../models/stationModel";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 import { ZoneList } from "../../../models/zoneModels";
+import InfoIcon from '@mui/icons-material/Info';
 const StationMainView = ({ allstation, Delete, allzone ,FilterData,filters}: StationViewProps) => {
   const history = useHistory();
   const columns: any[] = [
@@ -176,7 +177,7 @@ const StationMainView = ({ allstation, Delete, allzone ,FilterData,filters}: Sta
             >
               <MenuItem value={"0"}>All Zone</MenuItem>
               {allzone.map((option) => (
-                <MenuItem value={option.zone_id}>{option.zone_name}</MenuItem>
+                <MenuItem value={option.zone_id} key={option.zone_id}>{option.zone_name}</MenuItem>
               ))}
             </TextField>
           </Grid>
@@ -247,6 +248,16 @@ const StationMainView = ({ allstation, Delete, allzone ,FilterData,filters}: Sta
                             startIcon={<DeleteIcon />}
                           >
                             Delete
+                          </Button>
+                          <Button
+                           
+                            style={{ marginLeft: 10 }}
+                            variant="outlined"
+                            color="primary"
+                            size="small"
+                            startIcon={<InfoIcon />}
+                          >
+                            Detail
                           </Button>
                         </StyledTableCell>
                       </StyledTableRow>
